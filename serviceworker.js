@@ -1,12 +1,14 @@
 //########################################
 // serviceworker for Simple App Shell
-// Version: 27.02.2021 17:50
+// Version: v1
 //########################################
 
-const cacheName = 'simple_appshell_21_02_27_17_50';
+const cacheName = 'simple_appshell_v1';
 const urlsToCache = [
 	'/',
 	'/index.htm',
+	'styles.css',
+	'script.js',
 	'/apple-touch-icon.png',
 	'/favicon.ico',
 	'/icon_144.png',
@@ -18,17 +20,17 @@ const urlsToCache = [
 
 //########################################
 //delete old cache
-self.addEventListener('activate', function(event) {
+self.addEventListener('activate', function (event) {
 	//console.log('SW activate');
 	event.waitUntil(
-		caches.keys().then(function(keys) {
-			return Promise.all(keys.map(function(key) {
+		caches.keys().then(function (keys) {
+			return Promise.all(keys.map(function (key) {
 				if (key !== cacheName) {
 					//console.log('Delete cache: ', key);
 					return caches.delete(key);
 				}
 			}));
-		}).then(function() {
+		}).then(function () {
 			//console.log('SW claim', cacheName);
 			return self.clients.claim();
 		})
@@ -37,13 +39,13 @@ self.addEventListener('activate', function(event) {
 
 //########################################
 //setup the cache
-self.addEventListener('install', function(event) {
+self.addEventListener('install', function (event) {
 	//console.log('SW install');
 	event.waitUntil(
-		caches.open(cacheName).then(function(cache) {
+		caches.open(cacheName).then(function (cache) {
 			//console.log('Open cache');
 			return cache.addAll(urlsToCache);
-		}).then(function() {
+		}).then(function () {
 			//console.log('Skip waiting');
 			return self.skipWaiting();
 		})
@@ -52,10 +54,10 @@ self.addEventListener('install', function(event) {
 
 //########################################
 //fetch the cache
-self.addEventListener('fetch', function(event) {
-    //console.log('SW fetch: ', event.request.url);
+self.addEventListener('fetch', function (event) {
+	//console.log('SW fetch: ', event.request.url);
 	event.respondWith(
-		caches.match(event.request).then(function(pResponse) {
+		caches.match(event.request).then(function (pResponse) {
 			if (pResponse) {
 				//console.log('Load from cache: ', event.request.url);
 				return pResponse;
