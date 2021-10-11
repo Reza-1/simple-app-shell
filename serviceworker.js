@@ -7,14 +7,14 @@ const cacheName = 'simple_appshell_v1';
 const urlsToCache = [
 	'/',
 	'/index.htm',
-	'styles.css',
-	'script.js',
-	'/apple-touch-icon.png',
-	'/favicon.ico',
-	'/icon_144.png',
-	'/icon_192.png',
-	'/icon_512.png',
-	'/icon_maskable.png',
+	'/styles.css',
+	'/script.js',
+	'/img/apple-touch-icon.png',
+	'/img/favicon.ico',
+	'/img/icon_144.png',
+	'/img/icon_192.png',
+	'/img/icon_512.png',
+	'/img/icon_maskable.png',
 	'/manifest.json'
 ];
 

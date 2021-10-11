@@ -1,6 +1,7 @@
 # simple-app-shell
 
-Simple App Shell provides a simple and basic HTML, CSS and Javascript shell for [Progessive Web Apps (PWA)](https://developers.google.com/web/progressive-web-apps).
+Simple App Shell provides a simple and basic HTML, CSS and Javascript shell for 
+[Progessive Web Apps (PWA)](https://developers.google.com/web/progressive-web-apps).
 The main features are:
 
 - Hash Navigation
@@ -23,7 +24,7 @@ With hash based navigation you can use back and forward buttons of your browser 
 Important: You can set an individual page id but you may not change the class="page".
 
 ```
-<body onload="initApp()">
+<body>
 ...
 <div class="page" id="appstart">
 	<div class="header">
@@ -49,34 +50,37 @@ The serviceworker is responsible for caching your files. This means basic conten
 When loading the web app based on simple app shell a servicworker is registered using the file serviceworker.js (located in root directory). Code sample 2 shows the caching section in serviceworker.js. There are just two items you may edit:
 
 ```
-var cacheName = 'simple_appshell_20_01_18_15_51';
+const cacheName = 'simple_appshell_v1';
 ```
 Every time you change your web app and you want the serviceworker to update your files you have to change the chacheName!
 
 ```
-var urlsToCache = [...];
+const urlsToCache = [...];
 ```
 A list with the files you want to cache. Add all files here you want to be available when offline (e.g. images, css, js).
 
-Important: The serviceworker only works in a secure environment (https) or with localhost. The lifecycle of a serviceworker is rather complex. For more information see https://developers.google.com/web/fundamentals/primers/service-workers
+Important: The serviceworker only works in a secure environment (https) or with localhost. The lifecycle of a serviceworker is rather complex. 
+For more information see https://developers.google.com/web/fundamentals/primers/service-workers
 
 For a working update process you may also have to switch off the browser cache for your pwa site (e.g. by using no-cache header statement in .htaccess, depends on your hosting environment).
 
 ```
 //########################################
 // serviceworker for Simple App Shell
-// Version: 18.01.2020 15:51
+// Version: v1
 //########################################
 
-var cacheName = 'simple_appshell_20_01_18_15_51';
+var cacheName = 'simple_appshell_v1';
 var urlsToCache = [
 	'/',
 	'/index.htm',
-	'/apple-touch-icon.png',
-	'/favicon.ico',
-	'/icon_144.png',
-	'/icon_192.png',
-	'/icon_512.png',
+	'styles.css',
+	'script.js',
+	'/img/apple-touch-icon.png',
+	'/img/favicon.ico',
+	'/img/icon_144.png',
+	'/img/icon_192.png',
+	'/img/icon_512.png',
 	'/manifest.json'
 ];
 ...
@@ -87,7 +91,7 @@ Code Sample 2: Caching section in serviceworker.js
 ## Basic User Interface
 Every content page contains a header and a content section (see code sample 1). The header section ```<div class="header">``` contains the page titles and the main navigation buttons. The content section ```<div class="content">``` may contain your content. The footer ```<p class="footer">Footer...``` is also included in the content section.
 
-CSS and JS code is included in the index.htm header section. You may change the CCS and add JS code for your needs. You may also replace the icons files with your icons.
+CSS and JS code .css and script.js respectively. You may change the CCS and add JS code for your needs. You may also replace the icons files with your icons.
 
 The basic template includes an info page that shows version and status info. Status messages and version info can be set in the top of the JS section. You may also use the info page for general, legal and license information.
 
