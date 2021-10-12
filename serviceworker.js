@@ -59,11 +59,13 @@ self.addEventListener('activate', function (event) {
 //fetch cache first , then network
 
 self.addEventListener('fetch', function (event) {
-	//console.log('SW fetch: ', event.request.url);
+	console.log('SW fetch: ', event.request.url);
 
-	event.respondWith( cacheFirstThenNetwork(event) );
+	//first option
+	//event.respondWith( cacheFirstThenNetwork(event) );
+
 	//second option
-	//cacheThenUpdate(event); // ToDo fix the error in console
+	cacheThenUpdate(event); // ToDo fix the error in console
 });
 
 //strategy : cache first then network
@@ -73,20 +75,34 @@ async function cacheFirstThenNetwork(event) {
 }
 
 //strategy: cache then update cache
-//refeence : https://serviceworke.rs/strategy-cache-and-update_service-worker_doc.html
+//ref : https://serviceworke.rs/strategy-cache-and-update_service-worker_doc.html
 function cacheThenUpdate(event) {
-	event.respondWith(fromCache(event.request));
-	event.waitUntil(update(event.request));
+	//using respondWith to answer immediately, without waiting for the network response 
+	event.respondWith(readFromCache(event.request));
+	//using waitUntil to keep service worker alive until the cache is updated.
+	event.waitUntil(updateCache(event.request));
 }
 
-async function fromCache(request) {
-	const cache = await caches.open(cacheName);
-	const matching = await cache.match(request);
-	return matching || Promise.reject('no-match');
+async function readFromCache(request) {
+	try {
+		console.log("reading from cache for "+request.url);
+		const cache = await caches.open(cacheName);
+		const matching = await cache.match(request);
+		return matching || Promise.reject('no-match');
+	} catch (error) {
+		console.error("error in readFromCache",error);
+		return Promise.reject('no-match');
+	}
+
 }
 
-async function update(request) {
-	const cache = await caches.open(cacheName);
-	const response = await fetch(request);
-	return cache.put(request, response);
+async function updateCache(request) {
+	try {
+		console.log("updating cache for "+request.url);
+	    const cache = await caches.open(cacheName);
+	    const response = await fetch(request);
+		return cache.put(request, response.clone());
+	} catch (error) {
+		console.error("error in updateCache for: ",request, "error:", error);
+	}
   }
