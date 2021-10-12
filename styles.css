@@ -4,7 +4,7 @@ body				{padding:0px; background-image:linear-gradient(to right, rgba(0,100,100,
 .page				{padding: 0px; margin:0px; display:none;-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;-o-user-select: none;user-select: none;}
 
 .header				{position:fixed; top: 0px;  left: 0px; padding:0px; margin:0px; background:#333333; height:55px; width:100%; z-index:100}
-.header	h1			{position:fixed; top:14px;  left:50px; padding:0px; margin:0px; color:#eeeeee; font-weight:normal; font-size:22px;}
+.header	h1			{position:fixed; top:14px;  left:20px; padding:0px; margin:0px; color:#eeeeee; font-weight:normal; font-size:22px;}
 .header	a			{position:fixed; padding:7px; margin:0px; color:#eeeeee; font-weight:normal; font-size:16px; border: 1px solid #eeeeee; border-radius:5px;}
 .header	a.button0	{display:block; top:14px; left: 15px; text-decoration:none; padding:0px; margin:0px; color:#eeeeee; font-weight:normal; font-size:22px; border:none}
 .header	a.button1	{display:block; top:10px; right:10px; text-decoration:none;}

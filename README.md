@@ -74,8 +74,8 @@ var cacheName = 'simple_appshell_v1';
 var urlsToCache = [
 	'/',
 	'/index.htm',
-	'styles.css',
-	'script.js',
+	'/styles.css',
+	'/script.js',
 	'/img/apple-touch-icon.png',
 	'/img/favicon.ico',
 	'/img/icon_144.png',
